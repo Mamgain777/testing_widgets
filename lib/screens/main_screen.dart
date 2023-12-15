@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:testing_widgets/screens/depth_card.dart';
+import 'package:testing_widgets/screens/fixed_header_table.dart';
 import 'package:testing_widgets/screens/scroolable_card.dart';
 import 'package:testing_widgets/screens/scroolable_table.dart';
+import 'package:testing_widgets/screens/section_selection.dart';
 
 class MainScreen extends StatefulWidget {
 
@@ -35,6 +37,21 @@ class _MainScreenState extends State<MainScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SectionSelection(),
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Text(
+                    "Selection Section"
+                  ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -78,6 +95,21 @@ class _MainScreenState extends State<MainScreen> {
                 child: const Center(
                   child: Text(
                     "Depth Card"
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FixedHeaderTable(),
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Text(
+                    "Fixed Header Table"
                   ),
                 ),
               ),
