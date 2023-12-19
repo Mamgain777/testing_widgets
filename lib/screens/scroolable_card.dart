@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:testing_widgets/common/common_appbar.dart';
 
 class ScrollableCard extends StatefulWidget {
-  const ScrollableCard({Key? key}) : super(key: key);
+  const ScrollableCard({
+    super.key
+  });
 
   @override
   State<ScrollableCard> createState() => _ScrollableCardState();
