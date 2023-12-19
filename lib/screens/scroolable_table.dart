@@ -9,6 +9,9 @@ class ScroolableTable extends StatefulWidget {
 }
 
 class _ScroolableTableState extends State<ScroolableTable> {
+
+  final ScrollController _testController = ScrollController(initialScrollOffset: 0);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,42 +26,48 @@ class _ScroolableTableState extends State<ScroolableTable> {
             border: Border.all(color: Colors.black, width: 1.0),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const [
-                DataColumn(label: Text('Header 1')),
-                DataColumn(label: Text('Header 2')),
-                DataColumn(label: Text('Header 3')),
-                DataColumn(label: Text('Header 4')),
-                DataColumn(label: Text('Header 5')),
-                // Add more DataColumn as needed
-              ],
-              rows: const [
-                DataRow(cells: [
-                  DataCell(Text('Data 1A')),
-                  DataCell(Text('Data 2A')),
-                  DataCell(Text('Data 3A')),
-                  DataCell(Text('Data 4A')),
-                  DataCell(Text('Data 5A')),
-                  // Add more DataCells as needed
-                ]),
-                DataRow(cells: [
-                  DataCell(SizedBox.shrink()),
-                  DataCell(SizedBox.shrink()),
-                  DataCell(
-                    Text('Data 1B'),
-                  ),
-                  DataCell(SizedBox.shrink()),
-                  DataCell(SizedBox.shrink()),
-                  // DataCell(Text('Data 2B')),
-                  // DataCell(Text('Data 3B')),
-                  // DataCell(Text('Data 4B')),
-                  // DataCell(Text('Data 5B')),
-                  // Add more DataCells as needed
-                ]),
-                // Add more DataRow as needed
-              ],
+          child: Scrollbar(
+            thumbVisibility: true,
+            controller: _testController,
+            // scrollbarOrientation: ScrollbarOrientation.bottom,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _testController,
+              child: DataTable(
+                columns: const [
+                  DataColumn(label: Text('Header 1')),
+                  DataColumn(label: Text('Header 2')),
+                  DataColumn(label: Text('Header 3')),
+                  DataColumn(label: Text('Header 4')),
+                  DataColumn(label: Text('Header 5')),
+                  // Add more DataColumn as needed
+                ],
+                rows: const [
+                  DataRow(cells: [
+                    DataCell(Text('Data 1A')),
+                    DataCell(Text('Data 2A')),
+                    DataCell(Text('Data 3A')),
+                    DataCell(Text('Data 4A')),
+                    DataCell(Text('Data 5A')),
+                    // Add more DataCells as needed
+                  ]),
+                  DataRow(cells: [
+                    // DataCell(SizedBox.shrink()),
+                    // DataCell(SizedBox.shrink()),
+                    DataCell(
+                      Text('Data 1B'),
+                    ),
+                    // DataCell(SizedBox.shrink()),
+                    // DataCell(SizedBox.shrink()),
+                    DataCell(Text('Data 2B')),
+                    DataCell(Text('Data 3B')),
+                    DataCell(Text('Data 4B')),
+                    DataCell(Text('Data 5B')),
+                    // Add more DataCells as needed
+                  ]),
+                  // Add more DataRow as needed
+                ],
+              ),
             ),
           ),
         ),
