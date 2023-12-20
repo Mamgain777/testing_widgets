@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testing_widgets/screens/depth_card.dart';
 import 'package:testing_widgets/screens/fixed_header_table.dart';
+import 'package:testing_widgets/screens/scrollable_graph.dart';
 import 'package:testing_widgets/screens/scroolable_card.dart';
 import 'package:testing_widgets/screens/scroolable_table.dart';
 import 'package:testing_widgets/screens/section_selection.dart';
@@ -37,6 +38,21 @@ class _MainScreenState extends State<MainScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ScroolableGraph(),
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Text(
+                    "Scroolable Graph"
+                  ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
