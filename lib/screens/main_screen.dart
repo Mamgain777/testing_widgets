@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testing_widgets/screens/depth_card.dart';
 import 'package:testing_widgets/screens/fixed_header_table.dart';
+import 'package:testing_widgets/screens/multiselect_dropdown.dart';
 import 'package:testing_widgets/screens/scrollable_graph.dart';
 import 'package:testing_widgets/screens/scroolable_card.dart';
 import 'package:testing_widgets/screens/scroolable_table.dart';
@@ -38,6 +39,23 @@ class _MainScreenState extends State<MainScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MultiSelectDropdownField(
+                        options: ["Himanshu", "Aman", "Yash", "Avneesh"],
+                      ),
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Text(
+                    "Mutiselect Options"
+                  ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
