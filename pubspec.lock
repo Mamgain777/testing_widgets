@@ -147,6 +147,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  omni_datetime_picker:
+    dependency: "direct main"
+    description:
+      name: omni_datetime_picker
+      sha256: d13f237b7fe8a849203563e4e95ca2a43fe3b357364ad9b224899e0710fd72fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
   path:
     dependency: transitive
     description:
@@ -234,4 +242,4 @@ packages:
     version: "0.3.0"
 sdks:
   dart: ">=3.2.0 <4.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=2.10.0"
