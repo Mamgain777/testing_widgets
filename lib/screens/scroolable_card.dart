@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:testing_widgets/common/common_appbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ScrollableCard extends StatefulWidget {
   const ScrollableCard({
@@ -11,40 +13,52 @@ class ScrollableCard extends StatefulWidget {
 }
 
 class _ScrollableCardState extends State<ScrollableCard> {
-  final List<String> section1 = [
-    'Card 1 Content',
-    'Card 1 Content',
-    'Card 1 Content'
-  ];
-  final List<String> section2 = [
-    'Card 2 Content',
-    'Card 2 Content',
-    'Card 2 Content'
-  ];
-  final List<String> section3 = [
-    'Card 3 Content',
-    'Card 3 Content',
-    'Card 3 Content'
+  List sections = [
+    [
+      'Card 1 Content',
+      'Card 1 Content',
+      'Card 1 Content',
+    ],
+    [
+      'Card 2 Content',
+      'Card 2 Content',
+      'Card 2 Content',
+    ],
+    [
+      'Card 3 Content',
+      'Card 3 Content',
+      'Card 3 Content',
+    ],
   ];
 
-  late PageController _pageController;
   int _currentPageIndex = 0;
+  late CarouselController _carouselController;
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
-    _pageController.addListener(() {
-      setState(() {
-        _currentPageIndex = _pageController.page!.round();
-      });
-    });
+    _carouselController = CarouselController();
+    _startAutoScroll();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _stopAutoScroll();
     super.dispose();
+  }
+
+  void _startAutoScroll() {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      _currentPageIndex = (_currentPageIndex + 1) % sections.length;
+      _carouselController.nextPage();
+      setState(() {});
+    });
+  }
+
+  void _stopAutoScroll() {
+    // Cancel the timer when the widget is disposed
+    _timer.cancel();
   }
 
   @override
@@ -63,19 +77,29 @@ class _ScrollableCardState extends State<ScrollableCard> {
               children: [
                 Expanded(
                   flex: 4,
-                  child: PageView(
-                    controller: _pageController,
-                    children: [
-                      buildCard(section1),
-                      buildCard(section2),
-                      buildCard(section3),
-                    ],
+                  child: CarouselSlider.builder(
+                    carouselController: _carouselController,
+                    options: CarouselOptions(
+                      height: 400,
+                      viewportFraction: 1.0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentPageIndex = index % sections.length;
+                        });
+                      },
+                    ),
+                    itemCount: sections.length,
+                    itemBuilder: (context, index, realIndex) {
+                      return buildCard(sections[index]);
+                    },
                   ),
                 ),
                 Expanded(
                   flex: 1,
-                  child: 
-                  buildBulletPoints(),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: buildBulletPoints(),
+                  ),
                 ),
               ],
             ),
@@ -106,19 +130,19 @@ class _ScrollableCardState extends State<ScrollableCard> {
   }
 
   Widget buildBulletPoints() {
-    return ListView.builder(
-      itemCount: 3,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundColor:
-                _currentPageIndex == index ? Colors.blue : Colors.grey,
-            radius: 8,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (int index = 0; index < sections.length; index++)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundColor:
+                  _currentPageIndex == index ? Colors.blue : Colors.grey,
+              radius: 8,
+            ),
           ),
-        );
-      },
+      ],
     );
   }
 }
